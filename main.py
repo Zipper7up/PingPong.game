@@ -1,4 +1,4 @@
-from traceback import print_tb
+
 
 import pygame
 
@@ -12,6 +12,7 @@ pygame.mixer.music.set_volume(0.1)
 WHITE = (255, 255, 255)
 GRAY = (100, 100, 100)
 DARK = (50, 50, 50)
+L_COlOR = (70, 70, 70)
 font = pygame.font.SysFont(None, 48)
 
 info = pygame.display.Info()
@@ -35,8 +36,8 @@ ball_speed_y = 9
 state = "menu"
 
 # Кнопки
-play_button = pygame.Rect(300, 200, 200, 60)
-exit_button = pygame.Rect(300, 300, 200, 60)
+play_button = pygame.Rect(width // 2 - 100, height // 2 - 50, 200, 60)
+exit_button = pygame.Rect(width // 2 - 100, height // 2 + 50, 200, 60)
 
 while True:
     # Проверка на выход
@@ -57,7 +58,7 @@ while True:
 
 
     if state == "menu":
-        screen.fill(DARK)
+        screen.fill((0, 0, 0))
 
         # Рисуем кнопки
         pygame.draw.rect(screen, GRAY, play_button)
@@ -67,8 +68,12 @@ while True:
         play_text = font.render("Играть", True, WHITE)
         exit_text = font.render("Выход", True, WHITE)
 
-        screen.blit(play_text, (340, 215))
-        screen.blit(exit_text, (350, 315))
+
+        play_rect = play_text.get_rect(center=play_button.center)
+        exit_rect = exit_text.get_rect(center=exit_button.center)
+
+        screen.blit(play_text, play_rect)
+        screen.blit(exit_text, exit_rect)
 
     if state == "game":
 
@@ -113,9 +118,10 @@ while True:
                 player_2.y += speed
 
         screen.fill((0, 0, 0))
+
+        pygame.draw.line(screen, L_COlOR, (width // 2, 0), (width // 2, height), 2)
         pygame.draw.rect(screen, (245, 19, 2), player_1)
         pygame.draw.rect(screen, (245, 152, 2), player_2)
         pygame.draw.rect(screen, (250, 243, 242), ball)
     clock.tick(FPS)
     pygame.display.flip()
-
