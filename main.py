@@ -113,6 +113,7 @@ while running:
         screen.blit(players_text, players_rect)
 
     if state == "game":
+
         # Движение мяча
         ball.x += ball_speed_x
         ball.y += ball_speed_y
@@ -172,6 +173,13 @@ while running:
         screen.blit(p_1_image, (player_1.x, player_1.y))
         screen.blit(p_2_image, (player_2.x, player_2.y))
         pygame.draw.rect(screen, (250, 243, 242), ball)
+
+        # Выравнивание счетчиков по центру экрана
+        text_1 = font.render(str(cnt_player1), True, WHITE)
+        screen.blit(text_1, (width // 2 - 100, 50))
+
+        text_2 = font.render(str(cnt_player2), True, WHITE)
+        screen.blit(text_2, (width // 2 + 70, 50))
 
     clock.tick(FPS)
     pygame.display.flip()
